@@ -1,9 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Test } from "./test";
+import { Parent } from "./parent";
 import { LandingPage } from "./landing.page";
 import { AppLayout } from "./app.layout";
 import { ProtectedRoute } from "./protected.route";
-
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import "./styles.css";
@@ -22,8 +23,14 @@ function App() {
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(
+  <Parent/>,
+  rootElement
+);
+
+/*const rootElement = document.getElementById("root");
+ReactDOM.render(
   <BrowserRouter>
     <App />
   </BrowserRouter>,
   rootElement
-);
+);*/
