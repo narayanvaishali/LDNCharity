@@ -7,7 +7,14 @@ import { config } from '../../utils/Config';
 
 export default class Login extends React.Component {
 
-	constructor(props) {
+   render ()
+    {
+        return(
+          <div>Login Page</div>
+        )
+    }
+
+/*	constructor(props) {
 		super(props);
 		this.state = {
 			email: '',
@@ -90,5 +97,5 @@ export default class Login extends React.Component {
 			    {this.state.fireRedirect && <Redirect to='/dashboard' push={true} />}
 			</div>
 		);
-	}
+	}*/
 }

@@ -5,7 +5,14 @@ import { config } from '../../utils/Config';
 
 export default class Dashboard extends React.Component {
 
-	constructor(props) {
+  render ()
+  {
+      return(
+        <div>Dashboard Page </div>
+      )
+  }
+
+	/*constructor(props) {
 		super(props);
 
 		this.state = {
@@ -115,5 +122,5 @@ export default class Dashboard extends React.Component {
 			    </div>
 			</div>   
 		);
-	}
+	}*/
 }

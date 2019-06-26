@@ -7,6 +7,14 @@ import { config } from '../../utils/Config';
 
 export default class Signup extends React.Component {
 
+   render ()
+    {
+        return(
+          <div>Signup Page</div>
+        )
+    }
+
+/*
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -103,5 +111,5 @@ export default class Signup extends React.Component {
 			    {this.state.fireRedirect && <Redirect to='/dashboard' push={true} />}
 			</div>
 		);
-	}
+	}*/
 }
