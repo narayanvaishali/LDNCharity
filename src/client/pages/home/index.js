@@ -3,21 +3,21 @@ import { Link } from 'react-router-dom';
 
 export default class Home extends React.Component {
 
- render ()
+ /*render ()
   {
       return(
         <div>Home Page</div>
       )
-  }
+  }*/
 
-	/*render() {
+	render() {
 		const buttonStyle = {
 			marginRight: '1em'
 		};
 		return (
 			<div class="container-fluid">
 			    <div class="jumbotron">
-			        <h1>Hello React - A simple MERN Stack web app</h1>
+			        <h1>LDN Charity</h1>
 			        <Link to={`/login`}>
 			            <button type="button" class="btn btn-primary btn-lg" style={buttonStyle}>
 			                Login
@@ -31,5 +31,5 @@ export default class Home extends React.Component {
 			    </div>
 			</div>
 		);
-	}*/
+	}
 }

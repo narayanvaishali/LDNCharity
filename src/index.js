@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import AppRoutes from './components/AppRoutes';
+import AppRoutes from '../src/client/components/AppRoutes';
 
 const app = document.getElementById('app');
 
