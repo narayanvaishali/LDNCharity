@@ -1,20 +1,19 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Redirect } from 'react-router';
+import { Link,Redirect } from 'react-router-dom';
+//import { Redirect } from 'react-router';
 import axios from 'axios';
-
 import { config } from '../../utils/Config';
 
 export default class Login extends React.Component {
 
-   render ()
-    {
-        return(
-          <div>Login Page</div>
-        )
-    }
+  //  render ()
+  //   {
+  //       return(
+  //         <div>Login Page</div>
+  //       )
+  //   }
 
-/*	constructor(props) {
+	constructor(props) {
 		super(props);
 		this.state = {
 			email: '',
@@ -34,7 +33,19 @@ export default class Login extends React.Component {
 			email: this.state.email,
 			password: this.state.password
 		};
-		axios.post(config.baseUrl + 'login', params)
+
+    this.props.authenticate({
+		    			name: 'Rachel Box',
+		    			email: 'rachel.box@ldncharity.com',
+		    			isLoggedIn: true
+		    		});
+
+     this.setState({
+		    			error: '',
+		    			fireRedirect: true
+		    		});            
+
+		/* axios.post(config.baseUrl + 'login', params)
 		    .then(response => {
 		    	if (response.data && response.data.success) {
 		    		
@@ -55,7 +66,7 @@ export default class Login extends React.Component {
 		    	}
 		    }).catch(err => {
 		    	console.error(err);
-		    });
+		    });*/
 	}
 
 	handleEmailChange(e) {
@@ -97,5 +108,5 @@ export default class Login extends React.Component {
 			    {this.state.fireRedirect && <Redirect to='/dashboard' push={true} />}
 			</div>
 		);
-	}*/
+	}
 }

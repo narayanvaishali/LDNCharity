@@ -1,20 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Redirect } from 'react-router';
+import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
-
 import { config } from '../../utils/Config';
+import { Jumbotron, Button } from 'reactstrap';
 
 export default class Signup extends React.Component {
 
-   render ()
+  /* render ()
     {
         return(
           <div>Signup Page</div>
         )
-    }
+    }*/
 
-/*
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -38,7 +36,19 @@ export default class Signup extends React.Component {
 			email: this.state.email,
 			password: this.state.password
 		};
-		axios.post(config.baseUrl + 'signup', params)
+
+    this.props.authenticate({
+		    			name: this.state.name,
+		    			email: this.state.email,
+		    			isLoggedIn: true
+		    		});
+
+	this.setState({
+		    			error: '',
+		    			fireRedirect: true
+		    		});            
+
+	/*	axios.post(config.baseUrl + 'signup', params)
 		    .then(response => {
 		    	if (response.data && response.data.success) {
 
@@ -60,6 +70,7 @@ export default class Signup extends React.Component {
 		    }).catch(err => {
 		    	console.error(err);
 		    });
+    */
 	}
 
 	handleNameChange(e) {
@@ -82,26 +93,27 @@ export default class Signup extends React.Component {
 
 	render() {
 		return (
-			<div class="container-fluid">
-			    <div class="jumbotron">
+      
+			<div className="container-fluid">
+			    <div className="Jumbotron">
 			        <h1>Please Signup</h1>
 			        <form onSubmit={this.handleSubmit}>
-			            <div class="form-group">
+			            <div className="form-group">
 				            <label>Name:</label>
-				            <input type="text" class="form-control" onChange={this.handleNameChange} />
+				            <input type="text" className="form-control" onChange={this.handleNameChange} />
 				        </div>
-				        <div class="form-group">
+				        <div className="form-group">
 				            <label>Email address:</label>
-				            <input type="email" class="form-control" onChange={this.handleEmailChange} />
+				            <input type="email" className="form-control" onChange={this.handleEmailChange} />
 				        </div>
-				        <div class="form-group">
+				        <div className="form-group">
 				            <label>Password:</label>
-				            <input type="password" class="form-control" onChange={this.handlePasswordChange} />
+				            <input type="password" className="form-control" onChange={this.handlePasswordChange} />
 				        </div>
-				        <button type="submit" class="btn btn-primary">Submit</button>
+				        <button type="submit" className="btn btn-primary">Submit</button>
 			        </form>
 			        <br />
-			        <p class="text-danger">{this.state.error}</p>
+			        <p className="text-danger">{this.state.error}</p>
 			        <p>
 			            Already have an account? 
 			            <Link to={'/login'}>Login</Link>
@@ -111,5 +123,5 @@ export default class Signup extends React.Component {
 			    {this.state.fireRedirect && <Redirect to='/dashboard' push={true} />}
 			</div>
 		);
-	}*/
+	}
 }

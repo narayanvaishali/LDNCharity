@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
 export default class Home extends React.Component {
 
@@ -15,21 +16,15 @@ export default class Home extends React.Component {
 			marginRight: '1em'
 		};
 		return (
-			<div class="container-fluid">
-			    <div class="jumbotron">
-			        <h1>LDN Charity</h1>
-			        <Link to={`/login`}>
-			            <button type="button" class="btn btn-primary btn-lg" style={buttonStyle}>
-			                Login
-			            </button>
-			        </Link>
-			        <Link to={`/signup`}>
-			            <button type="button" class="btn btn-primary btn-lg" style={buttonStyle}>
-			                Signup
-			            </button>
-			        </Link>
-			    </div>
-			</div>
+      <div>
+                <h1>LDN Charity</h1>
+                <Link to={`/login`}>
+                <Button color="primary" size="sm">Login </Button>{'    '}
+                </Link>
+                <Link to={`/signup`}>
+                    <Button> Sign Up</Button>
+                </Link>
+      </div>
 		);
 	}
 }
