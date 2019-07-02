@@ -29,6 +29,7 @@ export default class Login extends React.Component {
 
 	handleSubmit(e) {
 		e.preventDefault();
+    var data = [];
 		const params = {
 			email: this.state.email,
 			password: this.state.password
@@ -43,7 +44,36 @@ export default class Login extends React.Component {
      this.setState({
 		    			error: '',
 		    			fireRedirect: true
-		    		});            
+		    		});   
+     /* data = [{
+          "id": 1,
+          "name": "leena Graham",
+          "username": "Bret",
+          "email": "Sincere@april.biz",
+          "phone": "1-770-736-8031 x56442",
+          "website": "hildegard.org",
+        }]
+        fetch('data.json', {
+        method: 'PUT',
+        mode: 'CORS',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(res => {
+        return res;
+    }).catch(err => err);   */
+
+    fetch('data.json', {
+                method: 'POST',
+                headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+              },
+                body:JSON.stringify({name: "Graham"})
+            }).then((res) => res.json())
+            .then((data) =>  console.log(data))
+            .catch((err)=>console.log('here ' + err))      
 
 		/* axios.post(config.baseUrl + 'login', params)
 		    .then(response => {
