@@ -4,6 +4,7 @@ import { Link,Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { config } from '../../utils/Config';
 import Backendless from 'backendless';
+import { Jumbotron, Button } from 'reactstrap';
 
 export default class Login extends React.Component {
 
@@ -36,34 +37,16 @@ export default class Login extends React.Component {
 			password: this.state.password
 		};
 
-    this.props.authenticate({
+    /*this.props.authenticate({
 		    			name: 'Rachel Box',
 		    			email: 'rachel.box@ldncharity.com',
 		    			isLoggedIn: true
-		    		});
+		    		});**/
 
      this.setState({
 		    			error: '',
 		    			fireRedirect: true
 		    		});   
-     /* data = [{
-          "id": 1,
-          "name": "leena Graham",
-          "username": "Bret",
-          "email": "Sincere@april.biz",
-          "phone": "1-770-736-8031 x56442",
-          "website": "hildegard.org",
-        }]
-        fetch('data.json', {
-        method: 'PUT',
-        mode: 'CORS',
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }).then(res => {
-        return res;
-    }).catch(err => err);   */
 
  ///Get request
   /*Backendless.Data.of( "LDNUsers" ).find()
@@ -76,8 +59,52 @@ export default class Login extends React.Component {
     // an error has occurred, the error code can be retrieved with fault.statusCode
    });*/
 
+   console.log(this.state);
+
+       let success = false;
+       let fail = false;
+       var whereClause = "email = '"+ this.state.email +"'";
+
+        console.log(whereClause);
+
+  var queryBuilder = Backendless.DataQueryBuilder.create().setWhereClause( whereClause );
+
+  Backendless.Data.of( "LDNUsers" ).find( queryBuilder )
+	.then(response => {
+		    	if (JSON.stringify(response) != "") {
+          let _updatedobj = JSON.stringify(response);
+        
+          console.log(' _updatedobj '+ response[0].name);
+
+		    		this.props.authenticate({
+		    	    name:  response[0].name,
+		    			email:  response[0].email,
+		    			isLoggedIn: true
+		    		});
+		    		success = true;		    		
+		    	} else {
+            fail = true;    	
+		    	}
+		    }).catch(err => {
+          fail = true;
+		    	console.error(err);
+		    });
+   
+      if (success == true){
+        this.setState({
+		    			error: '',
+		    			fireRedirect: true
+		   	});
+      }
+
+     if (fail == true){
+          	this.setState({
+		    			error: response.message
+		    		});
+     }
+
    //update request
-  /* data = [{"address":"10880 Malibu Point","created":1562255385597,"name":"Tony Stark","id":"1","updated":null,"objectId":"14C502C6-41BB-82C2-FFCC-9EC05AA5E300","ownerId":null,"___class":"LDNUsers"},{"address":"New York City, Brooklyn","created":1562255385597,"name":"Steve Rogers","id":"3","updated":null,"objectId":"157F16DC-3E92-C198-FF98-4C9AECAE7C00","ownerId":null,"___class":"LDNUsers"},{"address":"Palace in Asgard","created":1562255385597,"name":"Thor Odinson","id":"4","updated":null,"objectId":"9F43A8AF-6BEE-1CA0-FF58-A361A8F11300","ownerId":null,"___class":"LDNUsers"},{"address":"2766 Taylor Street","created":1562255385597,"name":"Bruce Banner","id":"2","updated":null,"objectId":"BC601CAD-28FB-A0D4-FFC4-3F17351FD700","ownerId":null,"___class":"LDNUsers"}]*/
+  /* data = [{"address":"10880 Malibu Point","created":1562255385597,"name":"Tony Stark","id":"1","updated":null,"objectId":"14C502C6-41BB-82C2-FFCC-9EC05AA5E300","ownerId":null,"___className":"LDNUsers"},{"address":"New York City, Brooklyn","created":1562255385597,"name":"Steve Rogers","id":"3","updated":null,"objectId":"157F16DC-3E92-C198-FF98-4C9AECAE7C00","ownerId":null,"___className":"LDNUsers"},{"address":"Palace in Asgard","created":1562255385597,"name":"Thor Odinson","id":"4","updated":null,"objectId":"9F43A8AF-6BEE-1CA0-FF58-A361A8F11300","ownerId":null,"___className":"LDNUsers"},{"address":"2766 Taylor Street","created":1562255385597,"name":"Bruce Banner","id":"2","updated":null,"objectId":"BC601CAD-28FB-A0D4-FFC4-3F17351FD700","ownerId":null,"___className":"LDNUsers"}]*/
 
 /*
   data = {"address":"10880 Malibu Point","name":"Tony Stark C","id":"1","objectId":"14C502C6-41BB-82C2-FFCC-9EC05AA5E300"}
@@ -91,18 +118,6 @@ export default class Login extends React.Component {
       console.log( "an error has occurred " + error.message );
     });
 */
-
-   /* fetch('http://myjson.com/7x3fz', {
-                method: 'POST',
-                headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-              },
-                body:JSON.stringify({name: "Graham"})
-            }).then((res) => res)
-            .then((data) =>  console.log(data))
-            .catch((err)=>console.log('here login error -> ' + err))      
-    */
 
 		/* axios.post(config.baseUrl + 'login', params)
 		    .then(response => {
@@ -142,27 +157,27 @@ export default class Login extends React.Component {
 
 	render() {
 		return (
-			<div class="container-fluid">
-			    <div class="jumbotron">
+			<div className="container-fluid">
+			    <Jumbotron>
 			        <h1>Please Login</h1>
 			        <form onSubmit={this.handleSubmit}>
-				        <div class="form-group">
+				        <div className="form-group">
 				            <label>Email address:</label>
-				            <input type="email" class="form-control" onChange={this.handleEmailChange} />
+				            <input type="email" className="form-control" onChange={this.handleEmailChange} />
 				        </div>
-				        <div class="form-group">
+				        <div className="form-group">
 				            <label>Password:</label>
-				            <input type="password" class="form-control" onChange={this.handlePasswordChange} />
+				            <input type="password" className="form-control" onChange={this.handlePasswordChange} />
 				        </div>
-				        <button type="submit" class="btn btn-primary">Submit</button>
+				        <button type="submit" className="btn btn-primary">Submit</button>
 			        </form>
 			        <br />
-			        <p class="text-danger">{this.state.error}</p>
+			        <p className="text-danger">{this.state.error}</p>
 			        <p>
 			            New User? 
 			            <Link to={'/signup'}>Signup</Link>
 			        </p>
-			    </div>
+			    </Jumbotron>
 
 			    {this.state.fireRedirect && <Redirect to='/dashboard' push={true} />}
 			</div>

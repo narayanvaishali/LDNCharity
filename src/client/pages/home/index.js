@@ -13,13 +13,13 @@ export default class Home extends React.Component {
       )
   }*/
     componentDidMount() {
-    fetch('data.json')
+   /* fetch('data.json')
     .then(res => res.json())
     .then((data) => {
     //  this.setState({ todos: data })
       console.log(JSON.stringify (data))
     })
-    .catch(console.log)
+    .catch(console.log)*/
   }
 
 	render() {

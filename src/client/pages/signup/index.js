@@ -3,6 +3,7 @@ import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { config } from '../../utils/Config';
 import { Jumbotron, Button } from 'reactstrap';
+import Backendless from 'backendless';
 
 export default class Signup extends React.Component {
 
@@ -37,17 +38,77 @@ export default class Signup extends React.Component {
 			password: this.state.password
 		};
 
-    this.props.authenticate({
+    /*this.props.authenticate({
 		    			name: this.state.name,
 		    			email: this.state.email,
 		    			isLoggedIn: true
 		    		});
-
-	this.setState({
+    */
+	  this.setState({
 		    			error: '',
 		    			fireRedirect: true
-		    		});            
+		    		}); 
 
+console.log('params : ' + params);
+
+    /*Backendless.Data.of( "LDNUsers" ).save( params )
+    .then( function ( savedObject ) {
+        console.log(JSON.stringify(savedObject));
+        console.log( "LDNUsers instance is created");
+          let _updatedobj = JSON.stringify(savedObject);
+         console.log(' _updatedobj '+ _updatedobj);
+
+        	this.props.authenticate({
+		    			name: _updatedobj.name,
+		    			email: _updatedobj.email,
+		    			isLoggedIn: true
+		    		});
+		    		
+		    		this.setState({
+		    			error: '',
+		    			fireRedirect: true
+		    		});
+      })
+    .catch( function( error ) {
+        console.log( "an error has occurred : " + error.message );
+        	this.setState({
+		    			error: response.data.message
+		    		});
+      }); */
+       let success = false;
+       let fail = false;
+      Backendless.Data.of( "LDNUsers" ).save( params )
+		    .then(response => {
+		    	if (JSON.stringify(response) != "") {
+          let _updatedobj = JSON.stringify(response);
+         console.log(' _updatedobj '+ response.name);
+
+		    		this.props.authenticate({
+		    	    name: response.name,
+		    			email: response.email,
+		    			isLoggedIn: true
+		    		});
+		    		success = true;		    		
+		    	} else {
+            fail = true;    	
+		    	}
+		    }).catch(err => {
+          fail = true;
+		    	console.error(err);
+		    });
+   
+      if (success == true){
+        this.setState({
+		    			error: '',
+		    			fireRedirect: true
+		   	});
+      }
+
+     if (fail == true){
+          	this.setState({
+		    			error: response.message
+		    		});
+     }
 	/*	axios.post(config.baseUrl + 'signup', params)
 		    .then(response => {
 		    	if (response.data && response.data.success) {
@@ -95,7 +156,7 @@ export default class Signup extends React.Component {
 		return (
       
 			<div className="container-fluid">
-			    <div className="Jumbotron">
+			    <Jumbotron>
 			        <h1>Please Signup</h1>
 			        <form onSubmit={this.handleSubmit}>
 			            <div className="form-group">
@@ -118,7 +179,7 @@ export default class Signup extends React.Component {
 			            Already have an account? 
 			            <Link to={'/login'}>Login</Link>
 			        </p>
-			    </div>
+			    </Jumbotron>
 
 			    {this.state.fireRedirect && <Redirect to='/dashboard' push={true} />}
 			</div>

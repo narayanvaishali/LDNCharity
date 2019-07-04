@@ -15,6 +15,8 @@ export default class Dashboard extends React.Component {
 	constructor(props) {
 		super(props);
 
+    console.log('dashboard ' + JSON.stringify(this.props));
+
 		this.state = {
 			suggestions: [],
 			searchedPlaces: []
