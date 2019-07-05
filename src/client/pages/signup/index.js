@@ -3,17 +3,10 @@ import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { config } from '../../utils/Config';
 import { Jumbotron, Button } from 'reactstrap';
-import Backendless from 'backendless';
+//import Backendless from 'backendless';
+import { signupuser } from '../../../actions/loginactions';
 
 export default class Signup extends React.Component {
-
-  /* render ()
-    {
-        return(
-          <div>Signup Page</div>
-        )
-    }*/
-
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -38,100 +31,26 @@ export default class Signup extends React.Component {
 			password: this.state.password
 		};
 
-    /*this.props.authenticate({
-		    			name: this.state.name,
-		    			email: this.state.email,
-		    			isLoggedIn: true
-		    		});
-    */
 	  this.setState({
-		    			error: '',
-		    			fireRedirect: true
-		    		}); 
+		  error: '',
+		  fireRedirect: true
+		 }); 
+ 
+    signupuser(params, data => {
+      console.log('data -> ' + JSON.stringify(data))
+      const { name, email } = data;
+      this.props.authenticate({
+        name: name,
+        email: email,
+        isLoggedIn: true
+      });
 
-console.log('params : ' + params);
-
-    /*Backendless.Data.of( "LDNUsers" ).save( params )
-    .then( function ( savedObject ) {
-        console.log(JSON.stringify(savedObject));
-        console.log( "LDNUsers instance is created");
-          let _updatedobj = JSON.stringify(savedObject);
-         console.log(' _updatedobj '+ _updatedobj);
-
-        	this.props.authenticate({
-		    			name: _updatedobj.name,
-		    			email: _updatedobj.email,
-		    			isLoggedIn: true
-		    		});
-		    		
-		    		this.setState({
-		    			error: '',
-		    			fireRedirect: true
-		    		});
-      })
-    .catch( function( error ) {
-        console.log( "an error has occurred : " + error.message );
-        	this.setState({
-		    			error: response.data.message
-		    		});
-      }); */
-       let success = false;
-       let fail = false;
-      Backendless.Data.of( "LDNUsers" ).save( params )
-		    .then(response => {
-		    	if (JSON.stringify(response) != "") {
-          let _updatedobj = JSON.stringify(response);
-         console.log(' _updatedobj '+ response.name);
-
-		    		this.props.authenticate({
-		    	    name: response.name,
-		    			email: response.email,
-		    			isLoggedIn: true
-		    		});
-		    		success = true;		    		
-		    	} else {
-            fail = true;    	
-		    	}
-		    }).catch(err => {
-          fail = true;
-		    	console.error(err);
-		    });
-   
-      if (success == true){
-        this.setState({
-		    			error: '',
-		    			fireRedirect: true
-		   	});
-      }
-
-     if (fail == true){
-          	this.setState({
-		    			error: response.message
-		    		});
-     }
-	/*	axios.post(config.baseUrl + 'signup', params)
-		    .then(response => {
-		    	if (response.data && response.data.success) {
-
-		    		this.props.authenticate({
-		    			name: response.data.user.name,
-		    			email: response.data.user.email,
-		    			isLoggedIn: true
-		    		});
-		    		
-		    		this.setState({
-		    			error: '',
-		    			fireRedirect: true
-		    		});
-		    	} else {
-		    		this.setState({
-		    			error: response.data.message
-		    		});
-		    	}
-		    }).catch(err => {
-		    	console.error(err);
-		    });
-    */
+      this.setState(state => {
+          state.error =  '';
+		    	state.fireRedirect = true;
+           return state;
+          })
+       });
 	}
 
 	handleNameChange(e) {
