@@ -6,6 +6,7 @@ import Home from '../pages/home';
 import Login from '../pages/login';
 import Signup from '../pages/signup';
 import Dashboard from '../pages/dashboard';
+import Roles from '../pages/Roles';
 
 import { config } from '../utils/Config';
 
@@ -52,6 +53,7 @@ export default class AppRoutes extends React.Component {
 			    <Route exact path='/' component={Home} />
 			    <Route exact path='/login' render={() => <Login authenticate={this.authenticate} />} />
 			    <Route exact path='/signup' render={() => <Signup authenticate={this.authenticate} />} />
+          <Route exact path='/roles' render={() => <Roles authenticate={this.authenticate} />} />
 			    <Route path='/dashboard' render={() => (
 			    	this.state.user.isLoggedIn ? 
 			    	        (<Dashboard authenticate={this.authenticate} user={this.state.user} />) : 

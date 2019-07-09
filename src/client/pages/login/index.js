@@ -1,9 +1,6 @@
 import React from 'react';
 import { Link,Redirect } from 'react-router-dom';
-//import { Redirect } from 'react-router';
-import axios from 'axios';
 import { config } from '../../utils/Config';
-//import Backendless from 'backendless';
 import { Jumbotron, Button } from 'reactstrap';
 import { loginuser } from '../../../actions/loginactions';
 
@@ -49,11 +46,13 @@ export default class Login extends React.Component {
 
     //console.log(this.state);
 
+  if(this.state.email != "" && this.state.password != "" ){
     var whereClause = "email = '"+ this.state.email +"'";
     var queryBuilder = Backendless.DataQueryBuilder.create().setWhereClause( whereClause );
 
     loginuser(queryBuilder, data => {
-     // console.log('data -> ' + JSON.stringify(data))
+
+      console.log('data -> ' + JSON.stringify(data))
        this.props.authenticate({
         name: data[0].name,
         email: data[0].email,
@@ -66,6 +65,7 @@ export default class Login extends React.Component {
            return state;
           })
        });
+  }
 	}
 
 	handleEmailChange(e) {
@@ -88,7 +88,7 @@ export default class Login extends React.Component {
 			        <form onSubmit={this.handleSubmit}>
 				        <div className="form-group">
 				            <label>Email address:</label>
-				            <input type="email" className="form-control" onChange={this.handleEmailChange} />
+				            <input type="email"  className="form-control" onChange={this.handleEmailChange} />
 				        </div>
 				        <div className="form-group">
 				            <label>Password:</label>
