@@ -1,5 +1,10 @@
 import  React, {Component}  from 'react';
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Link, Redirect} from 'react-router-dom';
+import Home from '../pages/home';
+import Login from '../pages/login';
+import Signup from '../pages/signup';
+import Dashboard from '../pages/dashboard';
+import Roles from '../pages/Roles';
 
 const routes =[
   {
@@ -11,7 +16,7 @@ const routes =[
   {  
     path : '/Roles',
     sidebar : () => <div>Roles</div>,
-    main : () => <h1>Roles</h1>
+    main : () => <div><Redirect to='/Roles' push={true} /></div>
     },
   {
     path : '/Logout',
@@ -36,18 +41,8 @@ render (){
                 <li><Link to='/Roles'>Roles</Link></li>
                 <li><Link to='/Logout'>Logout</Link></li>
             </ul>
-          /*  {
-              routes.map ((route) => (
-                <Route 
-                key = {route.path}
-                path = {route.path}
-                exact = {route.exact}
-                component = {route.sidebar}
-                />
-              ))
-            }*/
             </div>
-           /* <div style= {{flex :1, padding: '10px'}}> 
+            <div style= {{flex :1, padding: '10px'}}> 
               {
               routes.map ((route) => (
                 <Route 
@@ -58,7 +53,7 @@ render (){
                 />
               ))
             }
-            </div>*/
+            </div>
       </div>
 
      </Router>
